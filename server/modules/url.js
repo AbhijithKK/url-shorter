@@ -8,7 +8,11 @@ const URLS=mongoose.Schema({
     modifyedUrl:{
         type:String,
         requred:true
-    }
+    },
+    urlId:{
+        type:String,
+        requred:true
+    },
 
 })
 
