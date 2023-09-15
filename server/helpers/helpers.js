@@ -5,7 +5,7 @@ const { randomUUID } = new ShortUniqueId({ length: 10 });
 
 export const ShortUrl=async(URL)=>{
         const uid=await randomUUID();
-        const newUrl=`${process.env.BASE_URL}/q=${uid}`
+        const newUrl=`${process.env.BASE_URL}/${uid}`
         return {newUrl,uid}
 };
 

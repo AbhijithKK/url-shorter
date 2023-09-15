@@ -114,7 +114,8 @@ export const redirector = async (req, res) => {
 
 export const LogOut = async (req, res) => {
   try {
-    res.cookie("user", "");
+    res.cookie("user", "")
+    .json({ error: true });
   } catch (error) {
     res.json({ error: true });
   }
