@@ -10,10 +10,8 @@ export const ShortUrl=async(URL)=>{
 };
 
 
-export const Sanitize = async (data) => {
-  let sanitized = await data
-    .replace(/[^a-zA-Z0-9@]/g, "")
-    .replace(/[^a-zA-Z0-9@]/g, "");
+export const Sanitize = (data) => {
+  let sanitized = data.replace(/[^a-zA-Z0-9@]/g, "")
   return sanitized;
 };
 

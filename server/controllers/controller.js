@@ -6,14 +6,15 @@ import URLModel from "../modules/url.js";
 
 export const SignUp = async (req, res) => {
   try {
-    const name = await Sanitize(req.body.name);
-    const email = await Sanitize(req.body.email);
+    console.log(req.body);
+    const name =  Sanitize(req.body.name)
+    const email =  Sanitize(req.body.email);
     let password = await bcrypt.hash(req.body.password, 10);
-
+    
     const data = await signUpModel.create({
-      name: name,
-      email: email,
-      password: password,
+        name: name,
+        email: email,
+        password: password,
     });
     if (data) {
       res.json({ success: true });
@@ -29,17 +30,21 @@ export const Login = async (req, res) => {
     const email = await Sanitize(req.body.email);
     let password = req.body.password;
     const data = await signUpModel.findOne({ email: email });
+
+
     if (data != null) {
       password = await bcrypt.compare(password, data.password);
       if (password == true) {
-        let jwt = await jwtSign(data._id);
-        res
-          .cookies("user", jwt, { sameSite: "none", https: false })
+          let jwt = await jwtSign(data._id);
+          console.log(jwt);
+        res?.cookie("user", jwt, { sameSite: "None", httpOnly: false,secure:true,maxAge:10000 })
           .json({ success: true });
       } else {
         res.json({ success: false });
       }
-    }
+    }else {
+        res.json({ success: false });
+      }
   } catch (error) {
     res.json({ error: true });
   }
@@ -47,7 +52,8 @@ export const Login = async (req, res) => {
 export const Auth = async (req, res) => {
   try {
     let value = false;
-    const verify = await jwtVerify(req.cookie("user"));
+    const verify = await jwtVerify(req.cookies.user);
+    console.log(verify?.data);
     if (verify?.data) {
       const data = await signUpModel.findOne({ _id: verify?.data?.data });
       if (data !== null) {
@@ -56,6 +62,7 @@ export const Auth = async (req, res) => {
         value = false;
       }
     }
+    console.log(value);
     res.json({ success: value });
   } catch (error) {
     res.json({ error: true });
@@ -64,8 +71,11 @@ export const Auth = async (req, res) => {
 export const PostUrl = async (req, res) => {
   try {
     const { url } = req.body;
+    console.log(url);
     const { newUrl, uid } = await ShortUrl(url);
-    const verify = await jwtVerify(req.cookie("user"));
+    console.log(newUrl);
+
+    const verify = await jwtVerify(req.cookies.user);
     if (verify?.data) {
       const data = await signUpModel.findOne({ _id: verify?.data });
       if (data !== null) {
@@ -89,7 +99,8 @@ export const PostUrl = async (req, res) => {
 
 export const redirector = async (req, res) => {
   try {
-    const id = req.params.req;
+    const id = req.params.id;
+    console.log(id);
     let data = await URLModel.findOne({ urlId: id });
     if (data != null) {
       res.redirect(data.mainUrl);

@@ -5,10 +5,10 @@ const route=Router()
 
 route.post('/signup',SignUp)
 route.post('/login',Login)
-route.post('/url',Middlewere,PostUrl)
+route.post('/url',PostUrl)
 
 route.get('/auth',Auth)
-route.get('/:q',Middlewere,redirector)
+route.get('/:id',redirector)
 route.get('/logout',LogOut)
 export default route
 
