@@ -6,7 +6,7 @@ function PrivateRoutes({route}) {
   const [auth,setAuth]=useState(true)
   const ApiHelper=async()=>{
     const data=await Auth()
-    // setAuth(data?.success)
+    setAuth(data?.success)
   }
   useEffect(()=>{
     ApiHelper()

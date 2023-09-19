@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import './Login.css'
 import { LoginApi } from '../../Api/Api'
 import { useForm } from '../../utils/useForm'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function Login() {
     const [errMsg,setErrMsg]=useState('')
+    const Navigatorr=useNavigate()
   const[value,setValues]=useForm({
     email:'',
     password:''
@@ -13,6 +14,10 @@ function Login() {
     if (value.email.trim()&&value.password.trim()) {
       setErrMsg('')
     const data=await LoginApi(value.email,value.password)
+   
+      if (data?.success) {
+        Navigatorr('/home')
+      }
     }else{
       setErrMsg('Fill the form properly')
     }

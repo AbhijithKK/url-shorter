@@ -9,6 +9,15 @@ export const Auth = async () => {
     return data;
   } catch (error) {}
 };
+export const PrevUrlApi = async (pageNo) => {
+  try {
+    const { data } = await Axioss.get("/prevurl",{params:{pageNo}});
+    if (data.error) {
+      console.log("errot");
+    }
+    return data;
+  } catch (error) {}
+};
 export const LoginApi = async (email, password) => {
   try {
     const { data } = await Axioss.post("/login", { email, password });
