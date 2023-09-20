@@ -2,7 +2,7 @@ import { Axioss } from "../utils/axios";
 
 export const Auth = async () => {
   try {
-    const { data } = await Axioss.get("/Auth");
+    const { data } = await Axioss.get("authlocal");
     if (data.error) {
       console.log("errot");
     }

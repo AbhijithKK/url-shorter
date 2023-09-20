@@ -3,6 +3,20 @@ import './Login.css'
 import { LoginApi } from '../../Api/Api'
 import { useForm } from '../../utils/useForm'
 import { Link, useNavigate } from 'react-router-dom'
+
+
+function navigate(url) {
+  window.location.href=url
+}
+
+async function auth(){
+  const resp=await fetch('http://localhost:4000/Gauth',{
+    method:'post'
+  })
+  const data =await resp.json()
+  navigate(data.url)
+}
+
 function Login() {
     const [errMsg,setErrMsg]=useState('')
     const Navigatorr=useNavigate()
@@ -45,7 +59,7 @@ function Login() {
             <h4>OR</h4>
           </div>
           <div className='signUp-bottom'>
-          <button style={{backgroundColor:'white',color:"black",fontWeight:'100px'}}>Login with google</button>
+          <button  onClick={()=>auth()} style={{backgroundColor:'white',color:"black",fontWeight:'100px'}}>Login with google</button>
          <Link to={'/signup'}> <p>Create an account?</p></Link>
         </div>
         </div>
