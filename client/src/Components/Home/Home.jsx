@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { PrevUrlApi, URLApi } from "../../Api/Api";
+import { LogoutApi, PrevUrlApi, URLApi } from "../../Api/Api";
 import "./Home.css";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useNavigate } from "react-router-dom";
 function Home() {
   const [prevURL, setPrevURL] = useState([]);
   const [copyed, setCopy] = useState(false);
+  const [copyed1, setCopy1] = useState(false);
   const [shortUrl, setShortUrl] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -20,7 +22,6 @@ function Home() {
       setErrMsg("");
 
       const data = await URLApi(url);
-      console.log(data);
       setShortUrl(data?.newURL);
     } else {
       setErrMsg("plese Paste any url link");
@@ -35,17 +36,30 @@ function Home() {
   useEffect(()=>{
     ApiCall()
    
-  },[]) 
+  },[copyed]) 
 
   useEffect(()=>{
     setTimeout(() => {
         setCopy(false)
     }, 5000);
   },[copyed])
+  useEffect(()=>{
+    setTimeout(() => {
+        setCopy1(false)
+    }, 5000);
+  },[copyed1])
   const GetPage=(event,newPage)=>{
    
     setPageNo(newPage)
     ApiCall(newPage)
+  }
+  const Nav=useNavigate()
+  const Logout=async()=>{
+   const data=await LogoutApi()
+   console.log(data);
+   if (data?.success) {
+    Nav('/login')
+   }
   }
   return (
     <div className="background">
@@ -70,6 +84,9 @@ function Home() {
       <span></span>
       <span></span>
 
+        <div className="logout-btn">
+        <button onClick={Logout}>Logout</button>
+        </div>
       <div className="home-input">
         <div className="result">
           <p>{errMsg}</p>
@@ -100,17 +117,18 @@ function Home() {
         <div className="all-urls">
             <u><h4 style={{color:'yellow'}}>Previous URLs</h4></u>
             <div className="all-url-sub">
-                {prevURL.map((urls,i)=>(
+                {prevURL ?
+                prevURL.map((urls,i)=>(
                     <div className="all-url-sub1" key={i}>
                     <p>{urls.modifyedUrl}</p>
-            <CopyToClipboard text={urls.modifyedUrl} onCopy={() => setCopy(true)}>
+            <CopyToClipboard text={urls.modifyedUrl} onCopy={() => setCopy1({status:true,id:urls._id})}>
             
-              <button style={{backgroundColor:copyed?urls._id ?'green':'':''}}>{copyed ?"URL copyed " : "copy"}</button>
+              <button style={{backgroundColor:copyed1?.status?urls._id===copyed1?.id ?'green':'':''}}>copy</button>
           </CopyToClipboard>
                     </div>
                 ))
 
-                }
+               :'(empty)' }
             
           <Stack  style={{marginTop:'5px'}}>
       

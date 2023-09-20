@@ -48,7 +48,9 @@ export const URLApi = async (url) => {
 
 export const LogoutApi = async () => {
   try {
+   
     const { data } = await Axioss.get("/logout");
+   
     if (data.error) {
       console.log("errot");
     }
