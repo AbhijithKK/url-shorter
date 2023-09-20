@@ -3,12 +3,13 @@ import { jwtVerify } from "./Jwt.js"
 
 export const Middlewere=async(req,res,next)=>{
     try {
-   
+   console.log('gh');
     let data=req.cookies.user
     if (data) {
         let verify=await jwtVerify(data)
-        let user =await signUpModel.findOne({_id:verify?.data?.data})
+        let user =await signUpModel.findOne({_id:verify?.data})
         if (user!=null) {
+            console.log('middlewere');
             next()
         }else
         res.json({error:true})

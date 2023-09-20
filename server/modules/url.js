@@ -13,8 +13,12 @@ const URLS=mongoose.Schema({
         type:String,
         requred:true
     },
+    userId:{
+        type:String,
+        requred:true
+    },
 
 })
 
-const URLModel=mongoose.model('shorted-urls',URLS)
+const URLModel=mongoose.model('urls',URLS)
 export default URLModel

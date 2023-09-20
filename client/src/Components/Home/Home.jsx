@@ -27,9 +27,8 @@ function Home() {
     }
   };
   const [pageNo,setPageNo]=useState(1)
-  const ApiCall=async()=>{
+  const ApiCall=async(pageNo=1)=>{
     const data=await PrevUrlApi(pageNo)
-    console.log(data,pageNo,'ff');
     setPageNo(data?.pages)
     setPrevURL(data?.data)
   }
@@ -37,17 +36,19 @@ function Home() {
     ApiCall()
    
   },[]) 
+
   useEffect(()=>{
     setTimeout(() => {
         setCopy(false)
     }, 5000);
   },[copyed])
   const GetPage=(event,newPage)=>{
+   
     setPageNo(newPage)
-    ApiCall()
+    ApiCall(newPage)
   }
   return (
-    <div class="background">
+    <div className="background">
       <span></span>
       <span></span>
       <span></span>
@@ -113,7 +114,7 @@ function Home() {
             
           <Stack  style={{marginTop:'5px'}}>
       
-      <Pagination count={pageNo} onClick={GetPage} color="primary" />
+      <Pagination count={pageNo} onChange={GetPage} color="primary" />
       
     </Stack>
             </div>

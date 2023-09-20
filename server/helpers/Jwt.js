@@ -9,8 +9,9 @@ export const jwtSign=async(data)=>{
 }
 export const jwtVerify=async(hash)=>{
     try {
-        console.log(hash);
+        console.log(hash,'hasgg');
         const data=await jwt.verify(hash,process.env.JWT_SECRECT_KEY,{algorithm:'HS256'})
+        console.log(data);
         return data
     } catch (error) {
         console.log(error);

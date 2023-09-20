@@ -7,13 +7,12 @@ import xss from "xss-clean";
 import sanitize from "express-mongo-sanitize";
 import cookie from "cookie-parser";
 import morgan from "morgan";
-import bodyParser from "body-parser";
 configDotenv();
 const app = Express();
 
 app.use(Express.urlencoded({ extended: false })); 
 app.use(Express.json());  
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: [process.env.BASE_URL], credentials: true }));
 app.use(cookie());
 app.use(sanitize());
 app.use(xss());
@@ -24,3 +23,4 @@ app.use(route);
 app.listen(process.env.PORT, () => {
   console.log(`CONNECTED PORT ${process.env.PORT}`);
 });
+ 
