@@ -7,7 +7,7 @@ route.post('/signup',SignUp)
 route.post('/login',Login)
 route.post('/url',Middlewere,PostUrl)
 
-route.get('/auth',Auth)
+route.get('/authlocal',Auth)
 route.get('/prevurl',Middlewere,PrevUrl)
 route.get('/logout',LogOut)
 route.get('/:id',redirector)

@@ -7,6 +7,7 @@ import xss from "xss-clean";
 import sanitize from "express-mongo-sanitize";
 import cookie from "cookie-parser";
 import morgan from "morgan";
+import Gauth from './routers/GauthRoutes.js'
 configDotenv();
 const app = Express();
 
@@ -19,6 +20,7 @@ app.use(xss());
 app.use(morgan("dev"));
 
 Db();
+app.use(Gauth)
 app.use(route);
 app.listen(process.env.PORT, () => {
   console.log(`CONNECTED PORT ${process.env.PORT}`);

@@ -12,6 +12,10 @@ const signUp=mongoose.Schema({
     password:{
         type:String,
         requred:true
+    },
+    gId:{
+        type:String,
+        
     }
 
 })
