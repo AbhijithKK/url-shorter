@@ -57,9 +57,7 @@ export const Auth = async (req, res) => {
     let value = false;
     const verify = await jwtVerify(req.cookies.user);
     if (verify?.data) {
-      console.log("ggg");
       const data = await signUpModel.findOne({ _id: verify?.data });
-      console.log(data);
       if (data !== null) {
         value = true;
       } else {
@@ -102,9 +100,7 @@ export const PostUrl = async (req, res) => {
 export const redirector = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id, "idd");
     let data = await URLModel.findOne({ urlId: id });
-    console.log(data);
     if (data != null) {
       res.redirect(data.mainUrl);
     } else {
@@ -114,29 +110,33 @@ export const redirector = async (req, res) => {
     res.json({ error: true });
   }
 };
-export const PrevUrl=async(req,res)=>{
-try {
-  const verify = await jwtVerify(req.cookies.user);
-  const count=await URLModel.count({ userId: verify?.data })
-  let {skip,limit,pages}=await Pagination(req.query.pageNo,count,3)
+export const PrevUrl = async (req, res) => {
+  try {
+    const verify = await jwtVerify(req.cookies.user);
+    const count = await URLModel.count({ userId: verify?.data });
+    let { skip, limit, pages } = await Pagination(req.query.pageNo, count, 3);
     if (verify?.data) {
       const data = await signUpModel.findOne({ _id: verify?.data });
       if (data !== null) {
-        const data = await URLModel.find({ userId: verify?.data }).skip(skip).limit(limit).sort({_id:-1}).exec()
-        res.json({data:data,pages:pages})
-      }else{
+        const data = await URLModel.find({ userId: verify?.data })
+          .skip(skip)
+          .limit(limit)
+          .sort({ _id: -1 })
+          .exec();
+        res.json({ data: data, pages: pages });
+      } else {
         res.json({ success: false });
       }
-    }else{
+    } else {
       res.json({ success: false });
     }
-} catch (error) {
-  res.json({ error: true });
-}
-}
+  } catch (error) {
+    res.json({ error: true });
+  }
+};
 export const LogOut = async (req, res) => {
   try {
-    res.cookie("user", "").json({ error: true });
+    res.cookie("user", "").json({ success: true });
   } catch (error) {
     res.json({ error: true });
   }

@@ -9,7 +9,7 @@ route.post('/url',Middlewere,PostUrl)
 
 route.get('/auth',Auth)
 route.get('/prevurl',Middlewere,PrevUrl)
-route.get('/:id',redirector)
 route.get('/logout',LogOut)
+route.get('/:id',redirector)
 export default route
 
