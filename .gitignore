@@ -1,0 +1,16 @@
+# dependencies
+client/node_modules
+server/node_modules
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+
+client/.env
+server/.env
+
+# /server/.env
