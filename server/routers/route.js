@@ -12,4 +12,4 @@ route.get('/prevurl',Middlewere,PrevUrl)
 route.get('/logout',LogOut)
 route.get('/:id',redirector)
 export default route
-
+   

@@ -3,6 +3,7 @@ import { jwtVerify } from "./Jwt.js"
 
 export const Middlewere=async(req,res,next)=>{
     try {
+  
     let data=req.cookies.user
     if (data) {
         let verify=await jwtVerify(data)
