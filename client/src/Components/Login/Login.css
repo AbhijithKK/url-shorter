@@ -3,6 +3,7 @@
     justify-content: center;
     height: 100vh;
     align-items: center;
+    background-image: url(../../utils/5166950.jpg);
     }
     .form{
     display: flex;
@@ -11,7 +12,7 @@
     border-radius: 5px;
     border-color: black;
     border: 1px;
-    background-color: rgb(122, 121, 121);
+    background-color: rgb(15 16 50 / 49%) !important;
     height: 25rem;
     width: 25rem;
     border-style: solid;
@@ -61,6 +62,8 @@
     }
     .signUp-bottom{
         margin-top: 5px;
+        align-items: center;
+        text-align: center;
     }
     .signUp-bottom p{
         text-decoration: underline;
@@ -85,4 +88,10 @@
         margin-bottom: 15px;
         color: white;
         font-weight: bold;
+    }
+    button{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
     }

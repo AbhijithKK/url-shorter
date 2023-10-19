@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 Db();
 app.use(Gauth)
 app.use(route);
-app.listen(process.env.PORT, () => {
-  console.log(`CONNECTED PORT ${process.env.PORT}`);
+app.listen(5001, () => {
+  console.log(`CONNECTED PORT ${5001}`);
 });
  
