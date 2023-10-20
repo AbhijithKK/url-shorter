@@ -34,7 +34,9 @@ export const SignupApi = async (email, name, password) => {
       console.log("errot");
     }
     return data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const URLApi = async (url) => {
   try {
